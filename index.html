@@ -5,11 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Library</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/alpinejs" defer></script>
+  <style>
+    /* Smooth fade-in animation */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .fade-in {
+      animation: fadeInUp 0.8s ease forwards;
+    }
+  </style>
 </head>
 <body class="bg-gradient-to-br from-[#fdfcfb] to-[#e2d1c3] min-h-screen flex flex-col">
 
   <!-- Navbar -->
-  <header class="flex justify-between items-center p-6 bg-white/70 backdrop-blur-md shadow-md">
+  <header class="flex justify-between items-center p-6 bg-white/70 backdrop-blur-md shadow-md fade-in">
     <h1 class="text-2xl font-serif text-gray-800">📚 My Library</h1>
     <nav>
       <ul class="flex gap-6 text-gray-700 font-medium">
@@ -21,7 +38,7 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="flex flex-col items-center justify-center flex-grow text-center px-6 py-16">
+  <section class="flex flex-col items-center justify-center flex-grow text-center px-6 py-16 fade-in" style="animation-delay: 0.2s;">
     <h2 class="text-5xl md:text-6xl font-serif text-gray-900 mb-4">
       Welcome to My Cozy Library
     </h2>
@@ -35,23 +52,40 @@
   </section>
 
   <!-- Books Section -->
-  <section id="books" class="px-6 py-16 bg-white/70 backdrop-blur-md">
-    <h3 class="text-3xl font-serif text-center mb-10">Featured Books</h3>
+  <section id="books" class="px-6 py-16 bg-white/70 backdrop-blur-md" x-data="{ search: '' }">
+    <h3 class="text-3xl font-serif text-center mb-6 fade-in">Featured Books</h3>
+
+    <!-- Search Bar -->
+    <div class="flex justify-center mb-10 fade-in" style="animation-delay: 0.1s;">
+      <input 
+        type="text" 
+        placeholder="Search books..." 
+        class="px-4 py-2 rounded-full border border-gray-300 focus:ring-2 focus:ring-gray-500 focus:outline-none w-80"
+        x-model="search"
+      >
+    </div>
+
+    <!-- Books Grid -->
     <div class="grid gap-8 md:grid-cols-3 max-w-6xl mx-auto">
       <!-- Book Card -->
-      <div class="bg-white shadow-lg rounded-lg overflow-hidden hover:scale-105 transition-transform">
-        <img src="https://covers.openlibrary.org/b/id/8228691-L.jpg" alt="Book Cover" class="w-full h-72 object-cover">
-        <div class="p-4">
-          <h4 class="font-bold text-lg">The Great Gatsby</h4>
-          <p class="text-sm text-gray-600">F. Scott Fitzgerald</p>
+      <template x-for="book in [
+        { title: 'The Great Gatsby', author: 'F. Scott Fitzgerald', cover: 'https://covers.openlibrary.org/b/id/8228691-L.jpg' },
+        { title: 'Pride and Prejudice', author: 'Jane Austen', cover: 'https://covers.openlibrary.org/b/id/10582845-L.jpg' },
+        { title: '1984', author: 'George Orwell', cover: 'https://covers.openlibrary.org/b/id/7222246-L.jpg' }
+      ].filter(b => b.title.toLowerCase().includes(search.toLowerCase()))">
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden transform hover:scale-105 hover:shadow-2xl transition duration-300 fade-in">
+          <img :src="book.cover" alt="Book Cover" class="w-full h-72 object-cover">
+          <div class="p-4">
+            <h4 class="font-bold text-lg" x-text="book.title"></h4>
+            <p class="text-sm text-gray-600" x-text="book.author"></p>
+          </div>
         </div>
-      </div>
-      <!-- More book cards can be duplicated here -->
+      </template>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer id="about" class="mt-auto bg-gray-900 text-white py-6 text-center text-sm">
+  <footer id="about" class="mt-auto bg-gray-900 text-white py-6 text-center text-sm fade-in" style="animation-delay: 0.3s;">
     <p>Made with ❤️ by Israel | My Personal Library</p>
   </footer>
 
