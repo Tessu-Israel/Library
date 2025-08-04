@@ -1,40 +1,49 @@
-/* ===========================
-   Base Layout & Typography
-=========================== */
-
-/* Reset & base font */
+/* === Global Reset === */
 html, body {
   margin: 0;
   padding: 0;
-  font-family: 'Georgia', serif;
+  font-family: 'Segoe UI', system-ui, sans-serif;
   scroll-behavior: smooth;
 }
 
-/* Smooth hover scaling */
-button, a {
-  transition: all 0.25s ease;
+/* === Book Grid Layout === */
+.book-card {
+  perspective: 1200px;
+}
+.book-card-inner {
+  transition: transform 0.4s ease, box-shadow 0.3s ease;
+}
+.book-card:hover .book-card-inner {
+  transform: rotateY(6deg) rotateX(3deg) scale(1.02);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+}
+.book-cover {
+  width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
 }
 
-/* Navbar glass placeholder (real look in theme.css) */
-.glass-nav {
-  backdrop-filter: blur(12px);
+/* === Smooth Fade-in for Books === */
+.book-card {
+  opacity: 0;
+  animation: fadeInBook 0.8s ease forwards;
+}
+@keyframes fadeInBook {
+  to { opacity: 1; }
 }
 
-/* Grid spacing */
-#books {
-  padding-top: 2rem;
+/* === Category Buttons === */
+button {
+  cursor: pointer;
 }
 
-/* ===========================
-   Utilities
-=========================== */
-.breathing {
-  animation: breathe 3s ease-in-out infinite;
+/* === Modal Animations === */
+.modal-card {
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.3s ease;
 }
-@keyframes breathe {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+[x-show="showModal"] .modal-card {
+  transform: translateY(0);
+  opacity: 1;
 }
-
-/* Hide Alpine elements before load */
-[x-cloak] { display: none !important; }
