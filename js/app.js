@@ -53,3 +53,27 @@ morphToModal(book, event) {
   // We’ll implement GSAP morph effect here in later step
   this.showModal = true;
 }
+
+// In app.js
+morphToModal(book, event) {
+  this.selectedBook = book;
+
+  // Get clicked card element
+  const card = event.currentTarget;
+  const modal = document.querySelector(".modal-card");
+
+  // Store first position (before modal opens)
+  const state = Flip.getState(card);
+
+  // Show modal
+  this.showModal = true;
+
+  // Wait for modal to render
+  this.$nextTick(() => {
+    Flip.from(state, {
+      duration: 0.8,
+      ease: "power2.inOut",
+      absolute: true
+    });
+  });
+}
