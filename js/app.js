@@ -1,34 +1,64 @@
-document.addEventListener('alpine:init', () => {
-  Alpine.data('libraryApp', () => ({
-    search: '',
-    showModal: false,
-    selectedBook: {},
+document.addEventListener("alpine:init", () => {
+  Alpine.data("libraryApp", () => ({
+    search: "",
     books: [
-      { 
-        title: 'The Great Gatsby', 
-        author: 'F. Scott Fitzgerald', 
-        cover: 'https://covers.openlibrary.org/b/id/8228691-L.jpg', 
-        summary: 'A story of wealth, love, and the American Dream during the Jazz Age.', 
-        notes: 'Loved the symbolism of the green light.' 
+      {
+        title: "The Great Gatsby",
+        author: "F. Scott Fitzgerald",
+        genre: "Classic",
+        cover: "https://covers.openlibrary.org/b/id/8228691-L.jpg",
+        summary: "A story of wealth, love, and the American Dream.",
+        notes: "Loved the symbolism of the green light."
       },
-      { 
-        title: 'Pride and Prejudice', 
-        author: 'Jane Austen', 
-        cover: 'https://covers.openlibrary.org/b/id/10582845-L.jpg', 
-        summary: 'A romantic classic exploring manners, morality, and marriage in 19th-century England.', 
-        notes: 'Elizabeth Bennet is a timeless character.' 
+      {
+        title: "1984",
+        author: "George Orwell",
+        genre: "Sci-Fi",
+        cover: "https://covers.openlibrary.org/b/id/7222246-L.jpg",
+        summary: "A dystopian novel exploring surveillance and totalitarianism.",
+        notes: "Big Brother is watching."
       },
-      { 
-        title: '1984', 
-        author: 'George Orwell', 
-        cover: 'https://covers.openlibrary.org/b/id/7222246-L.jpg', 
-        summary: 'A dystopian vision of a totalitarian regime that watches everything.', 
-        notes: 'Scarily relevant to modern times.' 
+      {
+        title: "The Hobbit",
+        author: "J.R.R. Tolkien",
+        genre: "Fantasy",
+        cover: "https://covers.openlibrary.org/b/id/6979861-L.jpg",
+        summary: "A hobbit's adventurous quest to help dwarves reclaim their homeland.",
+        notes: "Bilbo’s courage grows throughout the journey."
+      },
+      {
+        title: "Meditations",
+        author: "Marcus Aurelius",
+        genre: "Philosophy",
+        cover: "https://covers.openlibrary.org/b/id/8231856-L.jpg",
+        summary: "Personal writings by the Roman Emperor on Stoic philosophy.",
+        notes: "Timeless wisdom for personal conduct."
       }
     ],
-    filteredBooks() {
-      return this.books.filter(b => b.title.toLowerCase().includes(this.search.toLowerCase()));
+    showModal: false,
+    selectedBook: {},
+    categories: ['All', 'Classic', 'Sci-Fi', 'Fantasy', 'Philosophy'],
+    activeCategory: 'All',
+
+    init() {
+      // Any startup animations or loading logic here
     },
+
+    filteredBooks() {
+      let filtered = this.activeCategory === 'All'
+        ? this.books
+        : this.books.filter(b => b.genre === this.activeCategory);
+
+      if (this.search.trim() !== "") {
+        filtered = filtered.filter(b =>
+          b.title.toLowerCase().includes(this.search.toLowerCase()) ||
+          b.author.toLowerCase().includes(this.search.toLowerCase())
+        );
+      }
+
+      return filtered;
+    },
+
     openBook(book) {
       this.selectedBook = book;
       this.showModal = true;
@@ -37,16 +67,11 @@ document.addEventListener('alpine:init', () => {
       this.showModal = false;
     },
     toggleDarkMode() {
-      document.documentElement.classList.toggle('dark');
-      localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
-    },
-    init() {
-      if (localStorage.getItem('darkMode') === 'true') {
-        document.documentElement.classList.add('dark');
-      }
+      document.documentElement.classList.toggle("dark");
     }
-  }))
-})
+  }));
+});
+
 
 morphToModal(book, event) {
   this.selectedBook = book;
