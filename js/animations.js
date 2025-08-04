@@ -44,4 +44,4 @@ document.addEventListener("alpine:init", () => {
       gsap.from(modal, { scale: 0.9, opacity: 0, duration: 0.4, ease: "power2.out" });
     }
   });
-});
+}); 
