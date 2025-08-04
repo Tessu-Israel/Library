@@ -35,3 +35,13 @@ document.addEventListener("alpine:init", () => {
     gsap.from(cards, { opacity: 0, y: 20, stagger: 0.05, duration: 0.4 });
   });
 });
+
+// Inside animations.js
+document.addEventListener("alpine:init", () => {
+  Alpine.effect(() => {
+    const modal = document.querySelector(".modal-card");
+    if (modal) {
+      gsap.from(modal, { scale: 0.9, opacity: 0, duration: 0.4, ease: "power2.out" });
+    }
+  });
+});
