@@ -2,4 +2,83 @@
    Aurora Background Animation
 =========================== */
 .aurora-bg {
-  background: linear-gradient(-45deg, #4b2e05, #2c1810, #8
+  background: linear-gradient(-45deg, #4b2e05, #2c1810, #8b5e34, #b8860b);
+  background-size: 400% 400%;
+  animation: gradientShift 20s ease infinite;
+}
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ===========================
+   Glassmorphism Cards
+=========================== */
+.glass-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* ===========================
+   Navbar Glass
+=========================== */
+.glass-nav {
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ===========================
+   Gold Ribbon for Genre
+=========================== */
+.genre-ribbon {
+  position: absolute;
+  top: 0.75rem;
+  left: -0.5rem;
+  background: linear-gradient(135deg, #d4af37, #f6e27a);
+  color: #1a1a1a;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+/* ===========================
+   Book Cards
+=========================== */
+.book-card {
+  perspective: 1000px;
+  transition: transform 0.3s ease;
+}
+.book-card:hover {
+  transform: translateY(-10px) scale(1.03);
+}
+
+/* ===========================
+   Modal Styling
+=========================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+.modal-card {
+  background: rgba(30, 20, 10, 0.95);
+  color: #f8f5e4;
+  border-radius: 1rem;
+  overflow: hidden;
+  max-width: 800px;
+  width: 100%;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+.modal-cover {
+  width: 200px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
