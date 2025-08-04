@@ -3,48 +3,48 @@
     "title": "The Great Gatsby",
     "author": "F. Scott Fitzgerald",
     "genre": "Classic",
-    "cover": "assets/covers/gatsby.jpg",
-    "summary": "A story of wealth, love, and the American Dream.",
-    "notes": "Loved the symbolism of the green light."
+    "cover": "https://covers.openlibrary.org/b/id/8226191-L.jpg",
+    "summary": "A tragic story of love, wealth, and the American Dream, set in the Roaring Twenties.",
+    "notes": "The symbolism of the green light is timeless."
   },
   {
     "title": "1984",
     "author": "George Orwell",
     "genre": "Sci-Fi",
-    "cover": "assets/covers/1984.jpg",
-    "summary": "A dystopian novel exploring surveillance and totalitarianism.",
-    "notes": "Big Brother is watching."
+    "cover": "https://covers.openlibrary.org/b/id/7222246-L.jpg",
+    "summary": "A chilling portrayal of totalitarianism and mass surveillance.",
+    "notes": "Big Brother is watching you."
   },
   {
     "title": "The Hobbit",
     "author": "J.R.R. Tolkien",
     "genre": "Fantasy",
-    "cover": "assets/covers/hobbit.jpg",
-    "summary": "A hobbit's adventurous quest to help dwarves reclaim their homeland.",
-    "notes": "Bilbo’s courage grows."
+    "cover": "https://covers.openlibrary.org/b/id/6979861-L.jpg",
+    "summary": "Bilbo Baggins embarks on a dangerous quest to reclaim a dwarven kingdom.",
+    "notes": "Even the smallest person can change the course of the future."
   },
   {
     "title": "Meditations",
     "author": "Marcus Aurelius",
     "genre": "Philosophy",
-    "cover": "assets/covers/meditations.jpg",
-    "summary": "Personal writings on Stoic philosophy.",
-    "notes": "Timeless wisdom for living."
+    "cover": "https://covers.openlibrary.org/b/id/10552879-L.jpg",
+    "summary": "The Stoic emperor's reflections on virtue, resilience, and human nature.",
+    "notes": "Control your mind, not external events."
   },
   {
     "title": "Dune",
     "author": "Frank Herbert",
     "genre": "Sci-Fi",
-    "cover": "assets/covers/dune.jpg",
-    "summary": "Epic tale of politics, prophecy, and survival on a desert planet.",
-    "notes": "Fear is the mind‑killer."
+    "cover": "https://covers.openlibrary.org/b/id/8101351-L.jpg",
+    "summary": "An epic saga of politics, prophecy, and power on the desert planet Arrakis.",
+    "notes": "Fear is the mind-killer."
   },
   {
     "title": "Pride and Prejudice",
     "author": "Jane Austen",
     "genre": "Classic",
-    "cover": "assets/covers/pride.jpg",
+    "cover": "https://covers.openlibrary.org/b/id/8482161-L.jpg",
     "summary": "A witty romantic drama exploring manners, morality, and marriage.",
-    "notes": "Elizabeth Bennet is iconic."
+    "notes": "Elizabeth Bennet’s wit is unmatched."
   }
 ]
