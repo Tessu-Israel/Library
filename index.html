@@ -52,6 +52,17 @@
     </div>
   </section>
 
+<div class="flex flex-wrap justify-center gap-3 mb-8">
+  <template x-for="cat in categories" :key="cat">
+    <button
+      @click="activeCategory = cat"
+      :class="{'bg-gradient-to-r from-pink-400 to-orange-400 text-white': activeCategory === cat, 'bg-gray-200 dark:bg-gray-700 dark:text-white': activeCategory !== cat}"
+      class="px-4 py-2 rounded-full transition hover:scale-105">
+      <span x-text="cat"></span>
+    </button>
+  </template>
+</div>
+
   <!-- Books Section -->
   <section id="books" class="px-6 py-20 bg-white/70 dark:bg-gray-900/70 backdrop-blur-md">
     <h3 class="text-3xl font-serif text-center mb-10 dark:text-white">Featured Books</h3>
