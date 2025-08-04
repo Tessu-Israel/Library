@@ -1,47 +1,31 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Hero title animation
-  const title = document.querySelector(".hero-title");
-  if (title) {
-    const words = title.innerText.split(" ");
-    title.innerHTML = words.map(w => `<span class="opacity-0 inline-block">${w}</span>`).join(" ");
-    gsap.to(".hero-title span", { opacity: 1, stagger: 0.2, duration: 0.6, ease: "power2.out" });
-  }
-
-  // Hero parallax tilt
-  const heroCard = document.getElementById("heroContent");
-  heroCard.addEventListener("mousemove", e => {
-    const { offsetWidth: w, offsetHeight: h } = heroCard;
-    const x = e.offsetX - w / 2;
-    const y = e.offsetY - h / 2;
-    heroCard.style.transform = `rotateX(${(y / h) * -10}deg) rotateY(${(x / w) * 10}deg)`;
-  });
-  heroCard.addEventListener("mouseleave", () => {
-    heroCard.style.transform = "rotateX(0) rotateY(0)";
-  });
-
-  // Book cards stagger animation
-  gsap.from(".book-card", {
+  // === Hero Text Reveal ===
+  gsap.from(".hero-title", {
+    duration: 1.2,
+    y: 40,
     opacity: 0,
-    y: 30,
-    duration: 0.8,
-    stagger: 0.15
+    ease: "power3.out"
+  });
+
+  // === Book Card Hover Sweep ===
+  document.querySelectorAll(".book-card-inner").forEach(card => {
+    card.addEventListener("mouseenter", () => {
+      gsap.to(card, { rotationY: 6, rotationX: 3, scale: 1.02, duration: 0.4, ease: "power2.out" });
+    });
+    card.addEventListener("mouseleave", () => {
+      gsap.to(card, { rotationY: 0, rotationX: 0, scale: 1, duration: 0.5, ease: "power2.inOut" });
+    });
+  });
+
+  // === Filter Ripple Effect ===
+  document.querySelectorAll("[data-filter]").forEach(btn => {
+    btn.addEventListener("click", e => {
+      const ripple = document.createElement("span");
+      ripple.className = "filter-ripple";
+      ripple.style.left = `${e.clientX - e.target.getBoundingClientRect().left}px`;
+      ripple.style.top = `${e.clientY - e.target.getBoundingClientRect().top}px`;
+      e.target.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 600);
+    });
   });
 });
-
-// Animate grid shuffle on category change
-document.addEventListener("alpine:init", () => {
-  Alpine.effect(() => {
-    const cards = document.querySelectorAll(".book-card");
-    gsap.from(cards, { opacity: 0, y: 20, stagger: 0.05, duration: 0.4 });
-  });
-});
-
-// Inside animations.js
-document.addEventListener("alpine:init", () => {
-  Alpine.effect(() => {
-    const modal = document.querySelector(".modal-card");
-    if (modal) {
-      gsap.from(modal, { scale: 0.9, opacity: 0, duration: 0.4, ease: "power2.out" });
-    }
-  });
-}); 
