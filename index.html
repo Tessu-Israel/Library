@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Library</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-[#fdfcfb] to-[#e2d1c3] min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <header class="flex justify-between items-center p-6 bg-white/70 backdrop-blur-md shadow-md">
+    <h1 class="text-2xl font-serif text-gray-800">📚 My Library</h1>
+    <nav>
+      <ul class="flex gap-6 text-gray-700 font-medium">
+        <li><a href="#" class="hover:text-gray-900 transition">Home</a></li>
+        <li><a href="#books" class="hover:text-gray-900 transition">Books</a></li>
+        <li><a href="#about" class="hover:text-gray-900 transition">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="flex flex-col items-center justify-center flex-grow text-center px-6 py-16">
+    <h2 class="text-5xl md:text-6xl font-serif text-gray-900 mb-4">
+      Welcome to My Cozy Library
+    </h2>
+    <p class="text-lg text-gray-700 max-w-xl mb-8">
+      A curated collection of my favorite reads, notes, and inspirations.  
+      Explore, discover, and get lost in the pages.
+    </p>
+    <a href="#books" class="bg-gray-900 text-white px-6 py-3 rounded-full text-lg hover:bg-gray-700 transition">
+      Explore Books
+    </a>
+  </section>
+
+  <!-- Books Section -->
+  <section id="books" class="px-6 py-16 bg-white/70 backdrop-blur-md">
+    <h3 class="text-3xl font-serif text-center mb-10">Featured Books</h3>
+    <div class="grid gap-8 md:grid-cols-3 max-w-6xl mx-auto">
+      <!-- Book Card -->
+      <div class="bg-white shadow-lg rounded-lg overflow-hidden hover:scale-105 transition-transform">
+        <img src="https://covers.openlibrary.org/b/id/8228691-L.jpg" alt="Book Cover" class="w-full h-72 object-cover">
+        <div class="p-4">
+          <h4 class="font-bold text-lg">The Great Gatsby</h4>
+          <p class="text-sm text-gray-600">F. Scott Fitzgerald</p>
+        </div>
+      </div>
+      <!-- More book cards can be duplicated here -->
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="about" class="mt-auto bg-gray-900 text-white py-6 text-center text-sm">
+    <p>Made with ❤️ by Israel | My Personal Library</p>
+  </footer>
+
+</body>
+</html>
