@@ -47,3 +47,9 @@ document.addEventListener('alpine:init', () => {
     }
   }))
 })
+
+morphToModal(book, event) {
+  this.selectedBook = book;
+  // We’ll implement GSAP morph effect here in later step
+  this.showModal = true;
+}
