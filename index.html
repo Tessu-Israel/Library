@@ -1,74 +1,69 @@
 <!DOCTYPE html>
-<html lang="en" x-data="libraryApp">
+<html lang="en" x-data="libraryApp" x-init="init">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Library</title>
-  
-  <!-- TailwindCSS CDN -->
+
+  <!-- TailwindCSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  
+  <script>
+    tailwind.config = { darkMode: 'class' }
+  </script>
+
   <!-- Alpine.js -->
   <script src="https://unpkg.com/alpinejs" defer></script>
-<script>
-  tailwind.config = {
-    darkMode: 'class'
-  }
-</script>
-  
-  <!-- Custom CSS -->
+
+  <!-- GSAP for animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <!-- Styles -->
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/theme.css">
 </head>
 <body class="bg-gradient-to-br from-[#fdfcfb] to-[#e2d1c3] dark:from-gray-900 dark:to-gray-800 min-h-screen flex flex-col transition-colors duration-500">
 
   <!-- Navbar -->
-  <header class="flex justify-between items-center p-6 bg-white/70 backdrop-blur-md shadow-md fade-in">
-    <h1 class="text-2xl font-serif text-gray-800">📚 My Library</h1>
-    <nav>
-      <ul class="flex gap-6 text-gray-700 font-medium">
-        <li><a href="#" class="hover:text-gray-900 transition">Home</a></li>
-        <li><a href="#books" class="hover:text-gray-900 transition">Books</a></li>
-        <li><a href="#about" class="hover:text-gray-900 transition">About</a></li>
-<button @click="toggleDarkMode" class="px-3 py-2 rounded-full bg-gray-200 dark:bg-gray-700 dark:text-white hover:scale-105 transition">
-  🌙
-</button>
-      </ul>
-    </nav>
+  <header class="fixed w-full z-20 flex justify-between items-center p-6 glass-nav fade-in">
+    <h1 class="text-2xl font-serif text-gray-800 dark:text-gray-100">📚 My Library</h1>
+    <div class="flex gap-4 items-center">
+      <input type="text" placeholder="Search..." class="search-input" x-model="search">
+      <button @click="toggleDarkMode" class="px-3 py-2 rounded-full bg-gray-200 dark:bg-gray-700 dark:text-white hover:scale-105 transition">🌙</button>
+    </div>
   </header>
 
   <!-- Hero Section -->
-  <section class="flex flex-col items-center justify-center flex-grow text-center px-6 py-16 fade-in" style="animation-delay: 0.2s;">
-    <h2 class="text-5xl md:text-6xl font-serif text-gray-900 mb-4">Welcome to My Cozy Library</h2>
-    <p class="text-lg text-gray-700 max-w-xl mb-8">
-      A curated collection of my favorite reads, notes, and inspirations.
-    </p>
-    <a href="#books" class="bg-gray-900 text-white px-6 py-3 rounded-full text-lg hover:bg-gray-700 transition">
-      Explore Books
-    </a>
+  <section class="relative h-screen flex items-center justify-center overflow-hidden">
+    <!-- Animated background -->
+    <div class="absolute inset-0 bg-gradient-animate"></div>
+
+    <!-- Glass card -->
+    <div class="glass-card text-center p-10 max-w-xl fade-in">
+      <h2 class="text-5xl font-serif mb-4 dark:text-white">Welcome to My Cozy Library</h2>
+      <p class="text-lg mb-8 dark:text-gray-300">
+        A premium collection of my favorite reads, notes, and inspirations.
+      </p>
+      <a href="#books" class="btn-primary">Explore Books</a>
+    </div>
   </section>
 
   <!-- Books Section -->
-  <section id="books" class="px-6 py-16 bg-white/70 backdrop-blur-md">
-    <h3 class="text-3xl font-serif text-center mb-6 fade-in">Featured Books</h3>
-
-    <!-- Search Bar -->
-    <div class="flex justify-center mb-10 fade-in" style="animation-delay: 0.1s;">
-      <input 
-        type="text" 
-        placeholder="Search books..." 
-        class="px-4 py-2 rounded-full border border-gray-300 focus:ring-2 focus:ring-gray-500 focus:outline-none w-80"
-        x-model="search"
-      >
-    </div>
-
-    <!-- Books Grid -->
-    <div class="grid gap-8 md:grid-cols-3 max-w-6xl mx-auto">
+  <section id="books" class="px-6 py-20 bg-white/70 dark:bg-gray-900/70 backdrop-blur-md">
+    <h3 class="text-3xl font-serif text-center mb-10 dark:text-white">Featured Books</h3>
+    <div class="grid gap-10 md:grid-cols-3 max-w-6xl mx-auto">
       <template x-for="book in filteredBooks()" :key="book.title">
-        <div @click="openBook(book)" class="bg-white shadow-lg rounded-lg overflow-hidden transform hover:scale-105 hover:shadow-2xl transition duration-300 fade-in cursor-pointer">
-          <img :src="book.cover" alt="Book Cover" class="w-full h-72 object-cover">
-          <div class="p-4">
-            <h4 class="font-bold text-lg" x-text="book.title"></h4>
-            <p class="text-sm text-gray-600" x-text="book.author"></p>
+        <div class="book-card" @mousemove="parallaxHover($event, $el)" @mouseleave="resetHover($el)" @click="openBook(book)">
+          <div class="book-card-inner">
+            <!-- Front -->
+            <div class="book-card-front">
+              <img :src="book.cover" alt="Book Cover" class="w-full h-72 object-cover rounded-lg shadow-lg">
+            </div>
+            <!-- Back -->
+            <div class="book-card-back flex flex-col justify-center p-4">
+              <h4 class="font-bold text-lg" x-text="book.title"></h4>
+              <p class="text-sm mb-4" x-text="book.author"></p>
+              <span class="btn-secondary">View Details</span>
+            </div>
           </div>
         </div>
       </template>
@@ -76,30 +71,26 @@
   </section>
 
   <!-- Modal -->
-  <div x-show="showModal" class="fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50" x-transition>
-    <div class="bg-white rounded-lg shadow-xl max-w-lg w-full overflow-hidden">
+  <div x-show="showModal" class="modal-overlay" x-transition>
+    <div class="modal-card">
       <div class="flex">
-        <img :src="selectedBook.cover" alt="" class="w-1/3 h-auto object-cover">
-        <div class="p-4 w-2/3">
-          <h3 class="text-2xl font-bold mb-2" x-text="selectedBook.title"></h3>
-          <p class="text-gray-600 mb-4" x-text="selectedBook.author"></p>
-          <p class="text-sm text-gray-700 mb-4" x-text="selectedBook.summary"></p>
-          <h4 class="font-semibold mb-2">My Notes</h4>
-          <p class="text-sm text-gray-600" x-text="selectedBook.notes"></p>
+        <img :src="selectedBook.cover" alt="" class="modal-cover">
+        <div class="p-6 flex-1">
+          <h3 class="text-2xl font-bold mb-2 dark:text-white" x-text="selectedBook.title"></h3>
+          <p class="dark:text-gray-300 mb-4" x-text="selectedBook.author"></p>
+          <p class="text-sm dark:text-gray-400 mb-4" x-text="selectedBook.summary"></p>
+          <h4 class="font-semibold mb-2 dark:text-gray-200">My Notes</h4>
+          <p class="text-sm dark:text-gray-400" x-text="selectedBook.notes"></p>
         </div>
       </div>
-      <div class="p-4 text-right border-t">
-        <button @click="closeModal" class="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700">Close</button>
+      <div class="p-4 text-right border-t border-gray-300 dark:border-gray-700">
+        <button @click="closeModal" class="btn-primary">Close</button>
       </div>
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer id="about" class="mt-auto bg-gray-900 text-white py-6 text-center text-sm fade-in" style="animation-delay: 0.3s;">
-    <p>Made with ❤️ by Israel | My Personal Library</p>
-  </footer>
-
-  <!-- Custom JS -->
+  <!-- Scripts -->
+  <script src="js/animations.js"></script>
   <script src="js/app.js"></script>
 
 </body>
