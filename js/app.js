@@ -27,10 +27,27 @@ function libraryApp() {
       });
     },
 
-    openBook(book) {
-      this.selectedBook = book;
-      this.showModal = true;
-    },
+    openBook(book, event) {
+  this.selectedBook = book;
+
+  // Find clicked card element
+  const cardEl = event.currentTarget.querySelector(".book-card-inner");
+
+  // Show modal so GSAP can target it
+  this.showModal = true;
+
+  // Wait a tick for modal DOM to render
+  this.$nextTick(() => {
+    const modalImageContainer = document.querySelector(".modal-cover-container");
+
+    if (cardEl && modalImageContainer) {
+      // Morph animation
+      const state = Flip.getState(cardEl);
+      modalImageContainer.appendChild(cardEl);
+      Flip.from(state, { duration: 0.6, ease: "power2.inOut", absolute: true });
+    }
+  });
+},
     closeModal() {
       this.showModal = false;
     },
