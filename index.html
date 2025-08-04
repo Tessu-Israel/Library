@@ -9,21 +9,13 @@
   <style>
     /* Smooth fade-in animation */
     @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    .fade-in {
-      animation: fadeInUp 0.8s ease forwards;
-    }
+    .fade-in { animation: fadeInUp 0.8s ease forwards; }
   </style>
 </head>
-<body class="bg-gradient-to-br from-[#fdfcfb] to-[#e2d1c3] min-h-screen flex flex-col">
+<body class="bg-gradient-to-br from-[#fdfcfb] to-[#e2d1c3] min-h-screen flex flex-col" x-data="libraryApp">
 
   <!-- Navbar -->
   <header class="flex justify-between items-center p-6 bg-white/70 backdrop-blur-md shadow-md fade-in">
@@ -39,9 +31,7 @@
 
   <!-- Hero Section -->
   <section class="flex flex-col items-center justify-center flex-grow text-center px-6 py-16 fade-in" style="animation-delay: 0.2s;">
-    <h2 class="text-5xl md:text-6xl font-serif text-gray-900 mb-4">
-      Welcome to My Cozy Library
-    </h2>
+    <h2 class="text-5xl md:text-6xl font-serif text-gray-900 mb-4">Welcome to My Cozy Library</h2>
     <p class="text-lg text-gray-700 max-w-xl mb-8">
       A curated collection of my favorite reads, notes, and inspirations.  
       Explore, discover, and get lost in the pages.
@@ -52,7 +42,7 @@
   </section>
 
   <!-- Books Section -->
-  <section id="books" class="px-6 py-16 bg-white/70 backdrop-blur-md" x-data="{ search: '' }">
+  <section id="books" class="px-6 py-16 bg-white/70 backdrop-blur-md">
     <h3 class="text-3xl font-serif text-center mb-6 fade-in">Featured Books</h3>
 
     <!-- Search Bar -->
@@ -67,13 +57,8 @@
 
     <!-- Books Grid -->
     <div class="grid gap-8 md:grid-cols-3 max-w-6xl mx-auto">
-      <!-- Book Card -->
-      <template x-for="book in [
-        { title: 'The Great Gatsby', author: 'F. Scott Fitzgerald', cover: 'https://covers.openlibrary.org/b/id/8228691-L.jpg' },
-        { title: 'Pride and Prejudice', author: 'Jane Austen', cover: 'https://covers.openlibrary.org/b/id/10582845-L.jpg' },
-        { title: '1984', author: 'George Orwell', cover: 'https://covers.openlibrary.org/b/id/7222246-L.jpg' }
-      ].filter(b => b.title.toLowerCase().includes(search.toLowerCase()))">
-        <div class="bg-white shadow-lg rounded-lg overflow-hidden transform hover:scale-105 hover:shadow-2xl transition duration-300 fade-in">
+      <template x-for="book in filteredBooks()" :key="book.title">
+        <div @click="openBook(book)" class="bg-white shadow-lg rounded-lg overflow-hidden transform hover:scale-105 hover:shadow-2xl transition duration-300 fade-in cursor-pointer">
           <img :src="book.cover" alt="Book Cover" class="w-full h-72 object-cover">
           <div class="p-4">
             <h4 class="font-bold text-lg" x-text="book.title"></h4>
@@ -84,10 +69,72 @@
     </div>
   </section>
 
+  <!-- Modal -->
+  <div x-show="showModal" class="fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50" x-transition>
+    <div class="bg-white rounded-lg shadow-xl max-w-lg w-full overflow-hidden">
+      <div class="flex">
+        <img :src="selectedBook.cover" alt="" class="w-1/3 h-auto object-cover">
+        <div class="p-4 w-2/3">
+          <h3 class="text-2xl font-bold mb-2" x-text="selectedBook.title"></h3>
+          <p class="text-gray-600 mb-4" x-text="selectedBook.author"></p>
+          <p class="text-sm text-gray-700 mb-4" x-text="selectedBook.summary"></p>
+          <h4 class="font-semibold mb-2">My Notes</h4>
+          <p class="text-sm text-gray-600" x-text="selectedBook.notes"></p>
+        </div>
+      </div>
+      <div class="p-4 text-right border-t">
+        <button @click="closeModal" class="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700">Close</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Footer -->
   <footer id="about" class="mt-auto bg-gray-900 text-white py-6 text-center text-sm fade-in" style="animation-delay: 0.3s;">
     <p>Made with ❤️ by Israel | My Personal Library</p>
   </footer>
+
+  <script>
+    document.addEventListener('alpine:init', () => {
+      Alpine.data('libraryApp', () => ({
+        search: '',
+        showModal: false,
+        selectedBook: {},
+        books: [
+          { 
+            title: 'The Great Gatsby', 
+            author: 'F. Scott Fitzgerald', 
+            cover: 'https://covers.openlibrary.org/b/id/8228691-L.jpg', 
+            summary: 'A story of wealth, love, and the American Dream during the Jazz Age.', 
+            notes: 'Loved the symbolism of the green light.' 
+          },
+          { 
+            title: 'Pride and Prejudice', 
+            author: 'Jane Austen', 
+            cover: 'https://covers.openlibrary.org/b/id/10582845-L.jpg', 
+            summary: 'A romantic classic exploring manners, morality, and marriage in 19th-century England.', 
+            notes: 'Elizabeth Bennet is a timeless character.' 
+          },
+          { 
+            title: '1984', 
+            author: 'George Orwell', 
+            cover: 'https://covers.openlibrary.org/b/id/7222246-L.jpg', 
+            summary: 'A dystopian vision of a totalitarian regime that watches everything.', 
+            notes: 'Scarily relevant to modern times.' 
+          }
+        ],
+        filteredBooks() {
+          return this.books.filter(b => b.title.toLowerCase().includes(this.search.toLowerCase()));
+        },
+        openBook(book) {
+          this.selectedBook = book;
+          this.showModal = true;
+        },
+        closeModal() {
+          this.showModal = false;
+        }
+      }))
+    })
+  </script>
 
 </body>
 </html>
