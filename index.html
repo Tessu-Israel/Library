@@ -14,7 +14,7 @@
   <!-- Alpine.js -->
   <script src="https://unpkg.com/alpinejs" defer></script>
 
-  <!-- GSAP for animations -->
+  <!-- GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
   <!-- Styles -->
@@ -32,60 +32,47 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
+  <!-- Hero -->
   <section class="relative h-screen flex items-center justify-center overflow-hidden hero-scene">
-  <!-- Aurora Gradient -->
-  <div class="absolute inset-0 aurora-bg"></div>
+    <!-- Aurora Gradient -->
+    <div class="absolute inset-0 aurora-bg"></div>
 
-  <!-- Bokeh Particles -->
-  <canvas id="bokehCanvas" class="absolute inset-0"></canvas>
+    <!-- Particles -->
+    <canvas id="bokehCanvas" class="absolute inset-0"></canvas>
 
-  <!-- Glass Card Content -->
-  <div class="glass-card text-center p-10 max-w-xl z-10" id="heroContent">
-    <h2 class="hero-title text-5xl font-serif mb-4 dark:text-white">
-      Welcome to My Cozy Library
-    </h2>
-    <p class="text-lg mb-8 dark:text-gray-300 hero-sub">
-      A premium collection of my favorite reads, notes, and inspirations.
-    </p>
-    <a href="#books" class="btn-primary breathing">Explore Books</a>
-  </div>
-</section>
+    <!-- Hero Content -->
+    <div class="glass-card text-center p-10 max-w-xl z-10" id="heroContent">
+      <h2 class="hero-title text-5xl font-serif mb-4 dark:text-white">
+        Welcome to My Cozy Library
+      </h2>
+      <p class="text-lg mb-8 dark:text-gray-300 hero-sub">
+        A premium collection of my favorite reads, notes, and inspirations.
+      </p>
+      <a href="#books" class="btn-primary breathing">Explore Books</a>
+    </div>
+  </section>
 
   <!-- Books Section -->
-<section id="books" class="px-6 py-20 bg-white/70 dark:bg-gray-900/70 backdrop-blur-md">
-  <h3 class="text-3xl font-serif text-center mb-10 dark:text-white">Featured Books</h3>
-  
-  <!-- Books Grid -->
-  <div class="grid gap-10 md:grid-cols-3 max-w-6xl mx-auto">
-    
-    <!-- Loop through books -->
-    <template x-for="book in filteredBooks()" :key="book.title">
-      
-      <!-- NEW Premium Card -->
-      <div class="book-card" @click="morphToModal(book, $event)">
-        <div class="book-card-inner relative">
-          
-          <!-- Genre Ribbon -->
-          <span class="genre-ribbon" x-text="book.genre"></span>
-          
-          <!-- Front Cover -->
-          <div class="book-card-front">
-            <img :src="book.cover" alt="Book Cover" class="book-cover">
+  <section id="books" class="px-6 py-20 bg-white/70 dark:bg-gray-900/70 backdrop-blur-md">
+    <h3 class="text-3xl font-serif text-center mb-10 dark:text-white">Featured Books</h3>
+    <div class="grid gap-10 md:grid-cols-3 max-w-6xl mx-auto">
+      <template x-for="book in filteredBooks()" :key="book.title">
+        <div class="book-card" @click="openBook(book)">
+          <div class="book-card-inner relative">
+            <span class="genre-ribbon" x-text="book.genre"></span>
+            <div class="book-card-front">
+              <img :src="book.cover" alt="Book Cover" class="book-cover">
+            </div>
           </div>
-          
         </div>
-      </div>
-      
-    </template>
-
-  </div>
-</section>
+      </template>
+    </div>
+  </section>
 
   <!-- Modal -->
   <div x-show="showModal" class="modal-overlay" x-transition>
     <div class="modal-card">
-      <div class="flex">
+      <div class="flex flex-col md:flex-row">
         <img :src="selectedBook.cover" alt="" class="modal-cover">
         <div class="p-6 flex-1">
           <h3 class="text-2xl font-bold mb-2 dark:text-white" x-text="selectedBook.title"></h3>
