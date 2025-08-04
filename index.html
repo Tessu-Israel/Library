@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" x-data="libraryApp" x-init="init">
+<html lang="en" x-data="libraryApp" x-init="init" x-cloak>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>High‑Class Library</title>
+  <title>📚 My Galactic Library</title>
 
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -23,32 +23,31 @@
 
 <body class="bg-[#1b1410] text-white min-h-screen flex flex-col">
 
-  <!-- ================== NAVBAR ================== -->
+  <!-- NAVBAR -->
   <header class="fixed w-full z-20 flex justify-between items-center p-6 glass-nav">
     <h1 class="text-2xl font-serif text-yellow-400">📚 My Library</h1>
     <div class="flex gap-4 items-center">
       <input type="text" placeholder="Search..." class="px-3 py-2 rounded-lg text-black" x-model="search">
-      <button @click="toggleDarkMode" class="px-3 py-2 rounded-full bg-yellow-500 text-black hover:scale-105 transition">🌙</button>
+      <button @click="toggleDarkMode" class="px-3 py-2 rounded-full bg-yellow-500 text-black hover:scale-105 transition">
+        🌙
+      </button>
     </div>
   </header>
 
-  <!-- ================== HERO SECTION ================== -->
+  <!-- HERO -->
   <section class="relative h-screen flex items-center justify-center overflow-hidden">
-    <!-- Aurora Background -->
     <div class="absolute inset-0 aurora-bg"></div>
-    <!-- Particles -->
     <canvas id="bokehCanvas" class="absolute inset-0"></canvas>
 
-    <!-- Hero Content -->
     <div class="glass-card text-center p-10 max-w-xl z-10" id="heroContent">
-      <h2 class="hero-title text-5xl font-serif mb-4 text-yellow-400">Welcome to My High‑Class Library</h2>
-      <p class="text-lg mb-8 text-yellow-200">A collection of treasured reads and timeless wisdom.</p>
-      <a href="#books" class="px-6 py-3 bg-yellow-500 text-black rounded-lg breathing">Explore Books</a>
+      <h2 class="hero-title text-5xl font-serif mb-4 text-yellow-400">Welcome to My Galactic Library</h2>
+      <p class="text-lg mb-8 text-yellow-200">A universe of treasured reads & timeless wisdom.</p>
+      <a href="#books" class="px-6 py-3 bg-yellow-500 text-black rounded-lg breathing">🚀 Explore Books</a>
     </div>
   </section>
 
-  <!-- ================== CATEGORY FILTERS ================== -->
-  <div class="flex flex-wrap justify-center gap-3 mb-8 mt-10">
+  <!-- CATEGORY FILTERS -->
+  <div class="flex flex-wrap justify-center gap-3 mb-8 mt-10 px-4">
     <template x-for="cat in categories" :key="cat">
       <button @click="activeCategory = cat"
         :class="{'bg-yellow-500 text-black': activeCategory === cat, 'bg-gray-700 text-white': activeCategory !== cat}"
@@ -58,7 +57,7 @@
     </template>
   </div>
 
-  <!-- ================== BOOK GRID ================== -->
+  <!-- BOOK GRID -->
   <section id="books" class="px-6 py-10">
     <div class="grid gap-10 md:grid-cols-3 max-w-6xl mx-auto">
       <template x-for="book in filteredBooks()" :key="book.title">
@@ -74,7 +73,7 @@
     </div>
   </section>
 
-  <!-- ================== MODAL ================== -->
+  <!-- MODAL -->
   <div x-show="showModal" class="modal-overlay" x-transition>
     <div class="modal-card p-6">
       <div class="flex flex-col md:flex-row gap-6">
@@ -93,7 +92,7 @@
     </div>
   </div>
 
-  <!-- ================== SCRIPTS ================== -->
+  <!-- SCRIPTS -->
   <script src="js/particles.js" defer></script>
   <script src="js/app.js" defer></script>
   <script src="js/animations.js" defer></script>
