@@ -67,20 +67,21 @@
 
   <!-- Books Section -->
   <section id="books" class="px-6 py-20 bg-white/70 dark:bg-gray-900/70 backdrop-blur-md">
-    <h3 class="text-3xl font-serif text-center mb-10 dark:text-white">Featured Books</h3>
-    <div class="grid gap-10 md:grid-cols-3 max-w-6xl mx-auto">
-      <template x-for="book in filteredBooks()" :key="book.title">
-        <div class="book-card" @click="openBook(book)">
-          <div class="book-card-inner relative">
-            <span class="genre-ribbon" x-text="book.genre"></span>
-            <div class="book-card-front">
-              <img :src="book.cover" alt="Book Cover" class="book-cover">
-            </div>
+  <h3 class="text-3xl font-serif text-center mb-10 dark:text-white">Featured Books</h3>
+
+  <div class="grid gap-10 md:grid-cols-3 max-w-6xl mx-auto">
+    <template x-for="book in filteredBooks()" :key="book.title">
+      <div class="book-card" @click="openBook(book)">
+        <div class="book-card-inner relative">
+          <span class="genre-ribbon" x-text="book.genre"></span>
+          <div class="book-card-front">
+            <img :src="book.cover" alt="Book Cover" class="book-cover">
           </div>
         </div>
-      </template>
-    </div>
-  </section>
+      </div>
+    </template>
+  </div>
+</section>
 
   <!-- Modal -->
   <div x-show="showModal" class="modal-overlay" x-transition>
