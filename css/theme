@@ -101,3 +101,33 @@
   object-fit: cover;
   border-radius: 0.5rem;
 }
+
+/* Aurora Background */
+.aurora-bg {
+  background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  mix-blend-mode: screen;
+}
+
+/* Genre Ribbon */
+.genre-ribbon {
+  position: absolute;
+  top: 0.75rem;
+  left: -0.5rem;
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+/* Breathing CTA */
+.breathing {
+  animation: breathe 3s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
