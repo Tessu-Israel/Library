@@ -33,42 +33,54 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="relative h-screen flex items-center justify-center overflow-hidden">
-    <!-- Animated background -->
-    <div class="absolute inset-0 bg-gradient-animate"></div>
+  <section class="relative h-screen flex items-center justify-center overflow-hidden hero-scene">
+  <!-- Aurora Gradient -->
+  <div class="absolute inset-0 aurora-bg"></div>
 
-    <!-- Glass card -->
-    <div class="glass-card text-center p-10 max-w-xl fade-in">
-      <h2 class="text-5xl font-serif mb-4 dark:text-white">Welcome to My Cozy Library</h2>
-      <p class="text-lg mb-8 dark:text-gray-300">
-        A premium collection of my favorite reads, notes, and inspirations.
-      </p>
-      <a href="#books" class="btn-primary">Explore Books</a>
-    </div>
-  </section>
+  <!-- Bokeh Particles -->
+  <canvas id="bokehCanvas" class="absolute inset-0"></canvas>
+
+  <!-- Glass Card Content -->
+  <div class="glass-card text-center p-10 max-w-xl z-10" id="heroContent">
+    <h2 class="hero-title text-5xl font-serif mb-4 dark:text-white">
+      Welcome to My Cozy Library
+    </h2>
+    <p class="text-lg mb-8 dark:text-gray-300 hero-sub">
+      A premium collection of my favorite reads, notes, and inspirations.
+    </p>
+    <a href="#books" class="btn-primary breathing">Explore Books</a>
+  </div>
+</section>
 
   <!-- Books Section -->
-  <section id="books" class="px-6 py-20 bg-white/70 dark:bg-gray-900/70 backdrop-blur-md">
-    <h3 class="text-3xl font-serif text-center mb-10 dark:text-white">Featured Books</h3>
-    <div class="grid gap-10 md:grid-cols-3 max-w-6xl mx-auto">
-      <template x-for="book in filteredBooks()" :key="book.title">
-        <div class="book-card" @mousemove="parallaxHover($event, $el)" @mouseleave="resetHover($el)" @click="openBook(book)">
-          <div class="book-card-inner">
-            <!-- Front -->
-            <div class="book-card-front">
-              <img :src="book.cover" alt="Book Cover" class="w-full h-72 object-cover rounded-lg shadow-lg">
-            </div>
-            <!-- Back -->
-            <div class="book-card-back flex flex-col justify-center p-4">
-              <h4 class="font-bold text-lg" x-text="book.title"></h4>
-              <p class="text-sm mb-4" x-text="book.author"></p>
-              <span class="btn-secondary">View Details</span>
-            </div>
+<section id="books" class="px-6 py-20 bg-white/70 dark:bg-gray-900/70 backdrop-blur-md">
+  <h3 class="text-3xl font-serif text-center mb-10 dark:text-white">Featured Books</h3>
+  
+  <!-- Books Grid -->
+  <div class="grid gap-10 md:grid-cols-3 max-w-6xl mx-auto">
+    
+    <!-- Loop through books -->
+    <template x-for="book in filteredBooks()" :key="book.title">
+      
+      <!-- NEW Premium Card -->
+      <div class="book-card" @click="morphToModal(book, $event)">
+        <div class="book-card-inner relative">
+          
+          <!-- Genre Ribbon -->
+          <span class="genre-ribbon" x-text="book.genre"></span>
+          
+          <!-- Front Cover -->
+          <div class="book-card-front">
+            <img :src="book.cover" alt="Book Cover" class="book-cover">
           </div>
+          
         </div>
-      </template>
-    </div>
-  </section>
+      </div>
+      
+    </template>
+
+  </div>
+</section>
 
   <!-- Modal -->
   <div x-show="showModal" class="modal-overlay" x-transition>
