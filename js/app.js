@@ -77,3 +77,11 @@ morphToModal(book, event) {
     });
   });
 }
+
+categories: ['All', 'Classic', 'Sci-Fi', 'Fantasy', 'Philosophy'],
+activeCategory: 'All',
+filteredBooks() {
+  return this.activeCategory === 'All'
+    ? this.books
+    : this.books.filter(b => b.genre === this.activeCategory);
+}
