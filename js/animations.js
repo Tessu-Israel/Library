@@ -27,3 +27,11 @@ document.addEventListener("DOMContentLoaded", () => {
     stagger: 0.15
   });
 });
+
+// Animate grid shuffle on category change
+document.addEventListener("alpine:init", () => {
+  Alpine.effect(() => {
+    const cards = document.querySelectorAll(".book-card");
+    gsap.from(cards, { opacity: 0, y: 20, stagger: 0.05, duration: 0.4 });
+  });
+});
