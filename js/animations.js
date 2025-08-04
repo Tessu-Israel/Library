@@ -29,3 +29,20 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+let flipState = null;
+
+function morphToModal(cardEl, modalEl) {
+  // Save the current layout state
+  flipState = Flip.getState(cardEl);
+
+  // Move the card into the modal container position instantly
+  modalEl.appendChild(cardEl);
+
+  // Animate from old to new position
+  Flip.from(flipState, {
+    duration: 0.6,
+    ease: "power2.inOut",
+    absolute: true
+  });
+}
