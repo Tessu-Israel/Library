@@ -3,8 +3,48 @@
     "title": "The Great Gatsby",
     "author": "F. Scott Fitzgerald",
     "genre": "Classic",
-    "cover": "https://covers.openlibrary.org/b/id/8228691-L.jpg",
+    "cover": "assets/covers/gatsby.jpg",
     "summary": "A story of wealth, love, and the American Dream.",
     "notes": "Loved the symbolism of the green light."
+  },
+  {
+    "title": "1984",
+    "author": "George Orwell",
+    "genre": "Sci-Fi",
+    "cover": "assets/covers/1984.jpg",
+    "summary": "A dystopian novel exploring surveillance and totalitarianism.",
+    "notes": "Big Brother is watching."
+  },
+  {
+    "title": "The Hobbit",
+    "author": "J.R.R. Tolkien",
+    "genre": "Fantasy",
+    "cover": "assets/covers/hobbit.jpg",
+    "summary": "A hobbit's adventurous quest to help dwarves reclaim their homeland.",
+    "notes": "Bilbo’s courage grows."
+  },
+  {
+    "title": "Meditations",
+    "author": "Marcus Aurelius",
+    "genre": "Philosophy",
+    "cover": "assets/covers/meditations.jpg",
+    "summary": "Personal writings on Stoic philosophy.",
+    "notes": "Timeless wisdom for living."
+  },
+  {
+    "title": "Dune",
+    "author": "Frank Herbert",
+    "genre": "Sci-Fi",
+    "cover": "assets/covers/dune.jpg",
+    "summary": "Epic tale of politics, prophecy, and survival on a desert planet.",
+    "notes": "Fear is the mind‑killer."
+  },
+  {
+    "title": "Pride and Prejudice",
+    "author": "Jane Austen",
+    "genre": "Classic",
+    "cover": "assets/covers/pride.jpg",
+    "summary": "A witty romantic drama exploring manners, morality, and marriage.",
+    "notes": "Elizabeth Bennet is iconic."
   }
 ]
