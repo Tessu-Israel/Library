@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" x-data="libraryApp" x-init="init" x-cloak>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>📚 My Galactic Library</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Elite Library</title>
 
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>tailwind.config = { darkMode: 'class' }</script>
 
   <!-- Styles -->
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/styles.css"/>
+  <link rel="stylesheet" href="css/theme.css"/>
 
   <!-- Alpine.js -->
   <script src="https://unpkg.com/alpinejs" defer></script>
@@ -19,17 +19,29 @@
   <!-- GSAP + Flip -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Flip.min.js"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
-<body class="bg-[#1b1410] text-white min-h-screen flex flex-col">
+<body class="bg-[#0a0a0a] text-white min-h-screen flex flex-col">
 
   <!-- NAVBAR -->
-  <header class="fixed w-full z-20 flex justify-between items-center p-6 glass-nav">
-    <h1 class="text-2xl font-serif text-yellow-400">📚 My Library</h1>
+  <header class="fixed w-full z-20 flex justify-between items-center px-6 py-4 glass-nav">
+    <div class="flex items-center gap-2">
+      <i data-lucide="library" class="w-6 h-6 text-gold"></i>
+      <h1 class="text-xl font-serif text-gold">My Elite Library</h1>
+    </div>
+
     <div class="flex gap-4 items-center">
-      <input type="text" placeholder="Search..." class="px-3 py-2 rounded-lg text-black" x-model="search">
-      <button @click="toggleDarkMode" class="px-3 py-2 rounded-full bg-yellow-500 text-black hover:scale-105 transition">
-        🌙
+      <div class="relative">
+        <input type="text" placeholder="Search..." 
+               class="pl-10 pr-3 py-2 rounded-lg text-black focus:ring-2 focus:ring-gold"
+               x-model="search"/>
+        <i data-lucide="search" class="w-5 h-5 text-gray-500 absolute left-3 top-2.5"></i>
+      </div>
+      <button @click="toggleDarkMode" class="btn-icon">
+        <i data-lucide="moon" class="w-5 h-5"></i>
       </button>
     </div>
   </header>
@@ -39,10 +51,13 @@
     <div class="absolute inset-0 aurora-bg"></div>
     <canvas id="bokehCanvas" class="absolute inset-0"></canvas>
 
-    <div class="glass-card text-center p-10 max-w-xl z-10" id="heroContent">
-      <h2 class="hero-title text-5xl font-serif mb-4 text-yellow-400">Welcome to My Galactic Library</h2>
-      <p class="text-lg mb-8 text-yellow-200">A universe of treasured reads & timeless wisdom.</p>
-      <a href="#books" class="px-6 py-3 bg-yellow-500 text-black rounded-lg breathing">🚀 Explore Books</a>
+    <div class="glass-card text-center p-10 max-w-xl z-10">
+      <h2 class="hero-title text-5xl font-serif mb-4 text-gold">Welcome to My Elite Library</h2>
+      <p class="text-lg mb-8 text-gray-200">Rare collections. Eternal wisdom. Precision design.</p>
+      <a href="#books" class="btn-gold">
+        <i data-lucide="book-open" class="w-5 h-5"></i>
+        <span>Explore Books</span>
+      </a>
     </div>
   </section>
 
@@ -50,8 +65,9 @@
   <div class="flex flex-wrap justify-center gap-3 mb-8 mt-10 px-4">
     <template x-for="cat in categories" :key="cat">
       <button @click="activeCategory = cat"
-        :class="{'bg-yellow-500 text-black': activeCategory === cat, 'bg-gray-700 text-white': activeCategory !== cat}"
-        class="px-4 py-2 rounded-full transition hover:scale-105">
+        :class="{'btn-gold': activeCategory === cat, 'btn-glass': activeCategory !== cat}"
+        class="flex items-center gap-2 px-4 py-2 rounded-full transition hover:scale-105">
+        <i data-lucide="tag" class="w-4 h-4"></i>
         <span x-text="cat"></span>
       </button>
     </template>
@@ -65,7 +81,7 @@
           <div class="book-card-inner relative">
             <span class="genre-ribbon" x-text="book.genre"></span>
             <div class="book-card-front">
-              <img :src="book.cover" alt="Book Cover" class="book-cover rounded-lg shadow-lg">
+              <img :src="book.cover" alt="Book Cover" class="book-cover rounded-lg shadow-lg"/>
             </div>
           </div>
         </div>
@@ -77,17 +93,19 @@
   <div x-show="showModal" class="modal-overlay" x-transition>
     <div class="modal-card p-6">
       <div class="flex flex-col md:flex-row gap-6">
-        <img :src="selectedBook.cover" alt="" class="modal-cover">
+        <img :src="selectedBook.cover" alt="" class="modal-cover"/>
         <div>
           <h3 class="text-2xl font-bold mb-2" x-text="selectedBook.title"></h3>
-          <p class="mb-2" x-text="selectedBook.author"></p>
+          <p class="mb-2 text-gray-300" x-text="selectedBook.author"></p>
           <p class="text-sm mb-4" x-text="selectedBook.summary"></p>
           <h4 class="font-semibold mb-2">My Notes</h4>
           <p class="text-sm" x-text="selectedBook.notes"></p>
         </div>
       </div>
       <div class="text-right mt-4">
-        <button @click="closeModal" class="px-4 py-2 bg-yellow-500 text-black rounded-lg">Close</button>
+        <button @click="closeModal" class="btn-gold">
+          <i data-lucide="x" class="w-4 h-4"></i> Close
+        </button>
       </div>
     </div>
   </div>
@@ -96,5 +114,10 @@
   <script src="js/particles.js" defer></script>
   <script src="js/app.js" defer></script>
   <script src="js/animations.js" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      lucide.createIcons();
+    });
+  </script>
 </body>
 </html>
