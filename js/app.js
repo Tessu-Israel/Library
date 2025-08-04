@@ -1,6 +1,10 @@
 document.addEventListener("alpine:init", () => {
   Alpine.data("libraryApp", () => ({
     search: "",
+    showModal: false,
+    selectedBook: {},
+    activeCategory: "All",
+    categories: ['All', 'Classic', 'Sci-Fi', 'Fantasy', 'Philosophy'],
     books: [
       {
         title: "The Great Gatsby",
@@ -35,13 +39,9 @@ document.addEventListener("alpine:init", () => {
         notes: "Timeless wisdom for personal conduct."
       }
     ],
-    showModal: false,
-    selectedBook: {},
-    categories: ['All', 'Classic', 'Sci-Fi', 'Fantasy', 'Philosophy'],
-    activeCategory: 'All',
 
     init() {
-      // Any startup animations or loading logic here
+      console.log("Library App Initialized");
     },
 
     filteredBooks() {
@@ -55,7 +55,6 @@ document.addEventListener("alpine:init", () => {
           b.author.toLowerCase().includes(this.search.toLowerCase())
         );
       }
-
       return filtered;
     },
 
@@ -71,42 +70,3 @@ document.addEventListener("alpine:init", () => {
     }
   }));
 });
-
-
-morphToModal(book, event) {
-  this.selectedBook = book;
-  // We’ll implement GSAP morph effect here in later step
-  this.showModal = true;
-}
-
-// In app.js
-morphToModal(book, event) {
-  this.selectedBook = book;
-
-  // Get clicked card element
-  const card = event.currentTarget;
-  const modal = document.querySelector(".modal-card");
-
-  // Store first position (before modal opens)
-  const state = Flip.getState(card);
-
-  // Show modal
-  this.showModal = true;
-
-  // Wait for modal to render
-  this.$nextTick(() => {
-    Flip.from(state, {
-      duration: 0.8,
-      ease: "power2.inOut",
-      absolute: true
-    });
-  });
-}
-
-categories: ['All', 'Classic', 'Sci-Fi', 'Fantasy', 'Philosophy'],
-activeCategory: 'All',
-filteredBooks() {
-  return this.activeCategory === 'All'
-    ? this.books
-    : this.books.filter(b => b.genre === this.activeCategory);
-}
