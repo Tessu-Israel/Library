@@ -77,29 +77,10 @@
   border-radius: 0.5rem;
 }
 
-/* Modal */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.modal-card {
-  background: rgba(255,255,255,0.95);
-  backdrop-filter: blur(20px);
-  border-radius: 1rem;
-  overflow: hidden;
-  max-width: 800px;
-  width: 100%;
-}
-
-.modal-cover {
-  width: 200px;
-  object-fit: cover;
-  border-radius: 0.5rem;
+/* Glass Navbar */
+.glass-nav {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
 }
 
 /* Aurora Background */
@@ -107,7 +88,11 @@
   background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb);
   background-size: 400% 400%;
   animation: gradientShift 15s ease infinite;
-  mix-blend-mode: screen;
+}
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* Genre Ribbon */
@@ -130,4 +115,32 @@
 @keyframes breathe {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.05); }
+}
+
+/* Book Cards */
+.book-card { perspective: 1000px; transition: transform 0.3s ease; }
+.book-card:hover { transform: translateY(-10px) scale(1.03); }
+.book-card-front img { border-radius: 0.5rem; box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-card {
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 1rem;
+  overflow: hidden;
+  max-width: 800px;
+  width: 100%;
+}
+.modal-cover {
+  width: 200px;
+  object-fit: cover;
+  border-radius: 0.5rem;
 }
