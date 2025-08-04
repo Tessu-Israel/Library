@@ -49,8 +49,17 @@ function libraryApp() {
   });
 },
     closeModal() {
-      this.showModal = false;
-    },
+  const modalImage = document.querySelector(".modal-cover-container .book-card-inner");
+  const originalCardSpot = document.querySelector(`.book-card[data-title="${this.selectedBook.title}"]`);
+
+  if (modalImage && originalCardSpot) {
+    const state = Flip.getState(modalImage);
+    originalCardSpot.appendChild(modalImage);
+    Flip.from(state, { duration: 0.6, ease: "power2.inOut", absolute: true });
+  }
+
+  this.showModal = false;
+},
     toggleDarkMode() {
       document.documentElement.classList.toggle("dark");
     }
