@@ -3,118 +3,99 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Library</title>
+  <title>High‑Class Library</title>
 
-  <!-- TailwindCSS -->
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = { darkMode: 'class' }
-  </script>
-
-  <!-- Alpine.js -->
-  <script src="https://unpkg.com/alpinejs" defer></script>
-
-  <!-- GSAP -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script>tailwind.config = { darkMode: 'class' }</script>
 
   <!-- Styles -->
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/theme.css">
 
-<!-- Alpine.js -->
-<script src="https://unpkg.com/alpinejs" defer></script>
+  <!-- Alpine.js -->
+  <script src="https://unpkg.com/alpinejs" defer></script>
 
-<!-- GSAP -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Flip.min.js"></script>
-
-<!-- Your Scripts -->
-<script src="js/app.js"></script>
+  <!-- GSAP + Flip -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Flip.min.js"></script>
 </head>
 
-<body x-data="libraryApp" x-init="init">
-<body class="bg-gradient-to-br from-[#fdfcfb] to-[#e2d1c3] dark:from-gray-900 dark:to-gray-800 min-h-screen flex flex-col transition-colors duration-500">
+<body class="bg-[#1b1410] text-white min-h-screen flex flex-col">
 
-  <!-- Navbar -->
-  <header class="fixed w-full z-20 flex justify-between items-center p-6 glass-nav fade-in">
-    <h1 class="text-2xl font-serif text-gray-800 dark:text-gray-100">📚 My Library</h1>
+  <!-- ================== NAVBAR ================== -->
+  <header class="fixed w-full z-20 flex justify-between items-center p-6 glass-nav">
+    <h1 class="text-2xl font-serif text-yellow-400">📚 My Library</h1>
     <div class="flex gap-4 items-center">
-      <input type="text" placeholder="Search..." class="search-input" x-model="search">
-      <button @click="toggleDarkMode" class="px-3 py-2 rounded-full bg-gray-200 dark:bg-gray-700 dark:text-white hover:scale-105 transition">🌙</button>
+      <input type="text" placeholder="Search..." class="px-3 py-2 rounded-lg text-black" x-model="search">
+      <button @click="toggleDarkMode" class="px-3 py-2 rounded-full bg-yellow-500 text-black hover:scale-105 transition">🌙</button>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="relative h-screen flex items-center justify-center overflow-hidden hero-scene">
-    <!-- Aurora Gradient -->
+  <!-- ================== HERO SECTION ================== -->
+  <section class="relative h-screen flex items-center justify-center overflow-hidden">
+    <!-- Aurora Background -->
     <div class="absolute inset-0 aurora-bg"></div>
-
     <!-- Particles -->
     <canvas id="bokehCanvas" class="absolute inset-0"></canvas>
 
     <!-- Hero Content -->
     <div class="glass-card text-center p-10 max-w-xl z-10" id="heroContent">
-      <h2 class="hero-title text-5xl font-serif mb-4 dark:text-white">
-        Welcome to My Cozy Library
-      </h2>
-      <p class="text-lg mb-8 dark:text-gray-300 hero-sub">
-        A premium collection of my favorite reads, notes, and inspirations.
-      </p>
-      <a href="#books" class="btn-primary breathing">Explore Books</a>
+      <h2 class="hero-title text-5xl font-serif mb-4 text-yellow-400">Welcome to My High‑Class Library</h2>
+      <p class="text-lg mb-8 text-yellow-200">A collection of treasured reads and timeless wisdom.</p>
+      <a href="#books" class="px-6 py-3 bg-yellow-500 text-black rounded-lg breathing">Explore Books</a>
     </div>
   </section>
 
-<div class="flex flex-wrap justify-center gap-3 mb-8">
-  <template x-for="cat in categories" :key="cat">
-    <button
-      @click="activeCategory = cat"
-      :class="{'bg-gradient-to-r from-pink-400 to-orange-400 text-white': activeCategory === cat, 'bg-gray-200 dark:bg-gray-700 dark:text-white': activeCategory !== cat}"
-      class="px-4 py-2 rounded-full transition hover:scale-105">
-      <span x-text="cat"></span>
-    </button>
-  </template>
-</div>
-
-  <!-- Books Section -->
-  <section id="books" class="px-6 py-20 bg-white/70 dark:bg-gray-900/70 backdrop-blur-md">
-  <h3 class="text-3xl font-serif text-center mb-10 dark:text-white">Featured Books</h3>
-
-  <div class="grid gap-10 md:grid-cols-3 max-w-6xl mx-auto">
-    <template x-for="book in filteredBooks()" :key="book.title">
-      <div class="book-card" @click="openBook(book)">
-        <div class="book-card-inner relative">
-          <span class="genre-ribbon" x-text="book.genre"></span>
-          <div class="book-card-front">
-            <img :src="book.cover" alt="Book Cover" class="book-cover">
-          </div>
-        </div>
-      </div>
+  <!-- ================== CATEGORY FILTERS ================== -->
+  <div class="flex flex-wrap justify-center gap-3 mb-8 mt-10">
+    <template x-for="cat in categories" :key="cat">
+      <button @click="activeCategory = cat"
+        :class="{'bg-yellow-500 text-black': activeCategory === cat, 'bg-gray-700 text-white': activeCategory !== cat}"
+        class="px-4 py-2 rounded-full transition hover:scale-105">
+        <span x-text="cat"></span>
+      </button>
     </template>
   </div>
-</section>
 
-  <!-- Modal -->
+  <!-- ================== BOOK GRID ================== -->
+  <section id="books" class="px-6 py-10">
+    <div class="grid gap-10 md:grid-cols-3 max-w-6xl mx-auto">
+      <template x-for="book in filteredBooks()" :key="book.title">
+        <div class="book-card cursor-pointer" @click="openBook(book, $event)">
+          <div class="book-card-inner relative">
+            <span class="genre-ribbon" x-text="book.genre"></span>
+            <div class="book-card-front">
+              <img :src="book.cover" alt="Book Cover" class="book-cover rounded-lg shadow-lg">
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+  </section>
+
+  <!-- ================== MODAL ================== -->
   <div x-show="showModal" class="modal-overlay" x-transition>
-    <div class="modal-card">
-      <div class="flex flex-col md:flex-row">
+    <div class="modal-card p-6">
+      <div class="flex flex-col md:flex-row gap-6">
         <img :src="selectedBook.cover" alt="" class="modal-cover">
-        <div class="p-6 flex-1">
-          <h3 class="text-2xl font-bold mb-2 dark:text-white" x-text="selectedBook.title"></h3>
-          <p class="dark:text-gray-300 mb-4" x-text="selectedBook.author"></p>
-          <p class="text-sm dark:text-gray-400 mb-4" x-text="selectedBook.summary"></p>
-          <h4 class="font-semibold mb-2 dark:text-gray-200">My Notes</h4>
-          <p class="text-sm dark:text-gray-400" x-text="selectedBook.notes"></p>
+        <div>
+          <h3 class="text-2xl font-bold mb-2" x-text="selectedBook.title"></h3>
+          <p class="mb-2" x-text="selectedBook.author"></p>
+          <p class="text-sm mb-4" x-text="selectedBook.summary"></p>
+          <h4 class="font-semibold mb-2">My Notes</h4>
+          <p class="text-sm" x-text="selectedBook.notes"></p>
         </div>
       </div>
-      <div class="p-4 text-right border-t border-gray-300 dark:border-gray-700">
-        <button @click="closeModal" class="btn-primary">Close</button>
+      <div class="text-right mt-4">
+        <button @click="closeModal" class="px-4 py-2 bg-yellow-500 text-black rounded-lg">Close</button>
       </div>
     </div>
   </div>
 
-  <!-- Scripts -->
-  <script src="js/animations.js"></script>
-  <script src="js/app.js"></script>
-
+  <!-- ================== SCRIPTS ================== -->
+  <script src="js/particles.js" defer></script>
+  <script src="js/app.js" defer></script>
+  <script src="js/animations.js" defer></script>
 </body>
 </html>
