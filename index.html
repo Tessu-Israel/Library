@@ -10,11 +10,16 @@
   
   <!-- Alpine.js -->
   <script src="https://unpkg.com/alpinejs" defer></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class'
+  }
+</script>
   
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="bg-gradient-to-br from-[#fdfcfb] to-[#e2d1c3] min-h-screen flex flex-col">
+<body class="bg-gradient-to-br from-[#fdfcfb] to-[#e2d1c3] dark:from-gray-900 dark:to-gray-800 min-h-screen flex flex-col transition-colors duration-500">
 
   <!-- Navbar -->
   <header class="flex justify-between items-center p-6 bg-white/70 backdrop-blur-md shadow-md fade-in">
@@ -24,6 +29,9 @@
         <li><a href="#" class="hover:text-gray-900 transition">Home</a></li>
         <li><a href="#books" class="hover:text-gray-900 transition">Books</a></li>
         <li><a href="#about" class="hover:text-gray-900 transition">About</a></li>
+<button @click="toggleDarkMode" class="px-3 py-2 rounded-full bg-gray-200 dark:bg-gray-700 dark:text-white hover:scale-105 transition">
+  🌙
+</button>
       </ul>
     </nav>
   </header>
